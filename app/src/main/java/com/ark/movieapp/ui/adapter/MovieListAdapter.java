@@ -49,26 +49,26 @@ public class MovieListAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(int i, View view, ViewGroup parent) {
         MovieView movieView;
 
         if (view == null) {
-            view = View.inflate(mContext, R.layout.item_movieList_summary, null);
+            view = View.inflate(mContext, R.layout.item_movielist_summary, null);
 
             movieView = new MovieView();
-            movieView.moviePoster = (Image) view.findViewById(R.id.item_movieList_moviePoster_imageView);
+            //movieView.moviePoster = (Image) view.findViewById(R.id.item_movieList_moviePoster_imageView);
             movieView.movieName = (TextView) view.findViewById(R.id.item_movieList_movieName_textView);
-            movieView.movieYear = (TextView) view.findViewById(R.id.item_movieList_movieYear);
+            movieView.movieYear = (TextView) view.findViewById(R.id.item_movieList_movieYear_textView);
 
             view.setTag(movieView);
         }
 
         movieView = (MovieView) view.getTag();
 
-        Movie movie = getItem(position);
-
+        Movie movie = getItem(i);
+        movieView.movieName.setText(movie.getTitle());
+        movieView.movieName.setText(movie.getYear());
         //movieView.moviePoster;
-
         return view;
 
     }
