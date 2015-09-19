@@ -1,25 +1,34 @@
 package com.ark.movieapp.ui.model;
 
-import android.media.Image;
+import info.movito.themoviedbapi.model.MovieDb;
 
 /**
  * Created by Akshayraj on 9/19/15.
  */
-public class Movie {
+public class Movie extends MovieDb{
 
-    int mPoster;
-    String mTitle;
-    String mYear;
-    int mRating;
-    int mDuration;
-    String mDescription;
+    private String mPosterPath;
+    private String mTitle;
+    private String mYear;
+    private int mRating;
+    private int mDuration;
+    private String mDescription;
 
-    public int getPoster() {
-        return mPoster;
+    public void toMovie(MovieDb movieDb){
+        setTitle(movieDb.getTitle());
+        setYear(movieDb.getReleaseDate());
+        setDescription(movieDb.getOverview());
+        setDuration(movieDb.getRuntime());
+        setRating((int) movieDb.getUserRating());
+        //mPosterPath = movieDb.getPosterPath();
     }
 
-    public void setPoster(int poster) {
-        mPoster = poster;
+    public String getPoster() {
+        return mPosterPath;
+    }
+
+    public void setPoster(String posterPath) {
+        mPosterPath = posterPath;
     }
 
     public String getTitle() {
