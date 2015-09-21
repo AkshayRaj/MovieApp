@@ -29,12 +29,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_movieList_nodata_ProgressBar" />
 
-            <com.apiosystems.transdevapp.ui.widgets.TextViewLight
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/loading_movies"
-                android:id="@+id/fragment_movieList_nodata_TextView" />
         </LinearLayout>
     </RelativeLayout>
 

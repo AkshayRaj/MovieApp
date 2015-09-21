@@ -63,7 +63,7 @@ public class MovieListAdapter extends BaseAdapter{
         movieView = (MovieView) view.getTag();
 
         Movie movie = getItem(i);
-        movieView.movieName.setText(movie.getTitle());
+        movieView.movieName.setText(movie.getDuration());
         movieView.movieName.setText(movie.getYear());
         //movieView.moviePoster;
         return view;

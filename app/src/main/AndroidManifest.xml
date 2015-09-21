@@ -10,15 +10,18 @@
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name="com.ark.movieapp.MovieActivity"
-            android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:name="com.ark.movieapp.ui.view.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ark.movieapp.ui.view.MovieListActivity"
+            android:label="@string/title_movie_list_activity">
 
         </activity>
 

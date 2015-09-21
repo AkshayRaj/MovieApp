@@ -1,14 +1,14 @@
 package com.ark.movieapp;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import ark.com.movieapp.R;
 
 /**
  * Created by Akshayraj on 9/19/15.
  */
-public class MovieActivity extends Activity {
+public class MovieActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

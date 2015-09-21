@@ -1,73 +1,113 @@
 package com.ark.movieapp.ui.model;
 
-import info.movito.themoviedbapi.model.MovieDb;
-
-/**
- * Created by Akshayraj on 9/19/15.
- */
-public class Movie extends MovieDb{
-
-    private String mPosterPath;
-    private String mTitle;
-    private String mYear;
-    private int mRating;
-    private int mDuration;
-    private String mDescription;
-
-    public void toMovie(MovieDb movieDb){
-        setTitle(movieDb.getTitle());
-        setYear(movieDb.getReleaseDate());
-        setDescription(movieDb.getOverview());
-        setDuration(movieDb.getRuntime());
-        setRating((int) movieDb.getUserRating());
-        //mPosterPath = movieDb.getPosterPath();
+public class Movie {
+    private final int mId;
+    private final String mPosterPath;
+    private final String mTitle;
+    private final String mYear;
+    private final String mRating;
+    private final String mDuration = "90";
+    private final String mDescription;
+    
+    private Movie(MovieBuilder movieBuilder) {
+        mId = movieBuilder.id;
+        mPosterPath = movieBuilder.posterPath;
+        mTitle = movieBuilder.originalTitle;
+        mYear = movieBuilder.releaseDate;
+        mRating = movieBuilder.popularity;
+        //mDuration = movieBuilder.duration;
+        mDescription = movieBuilder.overview;
     }
 
-    public String getPoster() {
+    public static class MovieBuilder {
+        private String overview;
+        private String originalTitle;
+        private int id;
+        private String popularity;
+        private String posterPath;
+        private String releaseDate;
+        private String duration;
+        
+        public MovieBuilder(int id) {
+            this.id = id;
+        }
+
+        public MovieBuilder setOverview(String overview) {
+            this.overview = overview;
+            return this;
+        }
+
+        public MovieBuilder setOriginalTitle(String originalTitle) {
+            this.originalTitle = originalTitle;
+            return this;
+        }
+
+        public MovieBuilder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public MovieBuilder setPopularity(String popularity) {
+            this.popularity = popularity;
+            return this;
+        }
+
+        public MovieBuilder setPosterPath(String posterPath) {
+            this.posterPath = posterPath;
+            return this;
+        }
+
+        public MovieBuilder setReleaseDate(String releaseDate) {
+            this.releaseDate = releaseDate;
+            return this;
+        }
+
+        public MovieBuilder setDuration(String duration) {
+            this.duration = duration;
+            return this;
+        }
+        
+        public Movie build() {
+            return new Movie(this);
+        }
+        
+    }
+    
+    public static MovieBuilder newBuilder(int id) {
+        return new MovieBuilder(id);
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public String getPosterPath() {
         return mPosterPath;
-    }
-
-    public void setPoster(String posterPath) {
-        mPosterPath = posterPath;
     }
 
     public String getTitle() {
         return mTitle;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
     public String getYear() {
         return mYear;
     }
 
-    public void setYear(String year) {
-        mYear = year;
-    }
-
-    public int getRating() {
+    public String getRating() {
         return mRating;
     }
 
-    public void setRating(int rating) {
-        mRating = rating;
-    }
-
-    public int getDuration() {
+    public String getDuration() {
         return mDuration;
     }
 
-    public void setDuration(int duration) {
-        mDuration = duration;
-    }
-
-    public String getDescription() {
+    public String getOverview() {
         return mDescription;
     }
 
-    public void setDescription(String description) {
-        mDescription = description;
+    @Override
+    public String toString() {
+        return getTitle();
     }
+    
 }
