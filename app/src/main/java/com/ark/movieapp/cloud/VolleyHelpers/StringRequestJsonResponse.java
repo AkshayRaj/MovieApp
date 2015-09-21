@@ -1,4 +1,4 @@
-package com.ark.movieapp.cloud.NetworkCallbacks;
+package com.ark.movieapp.cloud.VolleyHelpers;
 
 import android.util.Log;
 

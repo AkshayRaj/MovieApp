@@ -8,7 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.RequestFuture;
-import com.ark.movieapp.cloud.NetworkCallbacks.StringRequestJsonResponse;
+import com.ark.movieapp.cloud.VolleyHelpers.StringRequestJsonResponse;
 
 import org.json.JSONObject;
 

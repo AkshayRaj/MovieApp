@@ -86,7 +86,13 @@ public class MovieListActivity extends Activity {
                 Movie movie = (Movie) adapterView.getAdapter().getItem(i);
                 // 2. Pass this to the next activity to show the details page.
                 Intent intent = new Intent(mContext, MovieDetailsActivity.class);
-                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, (int) movie.getId());
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.getId());
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_BACKDROP, movie.getBackdropPath());
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_NAME, movie.getTitle());
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_YEAR, movie.getYear());
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_RATING, movie.getRating());
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_DURATION, movie.getDuration());
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_DESCRIPTION, movie.getOverview());
                 // 3. Start the Movie Details screen
                 startActivity(intent);
 
@@ -162,10 +168,12 @@ public class MovieListActivity extends Activity {
                     Movie.MovieBuilder movieBuilder = Movie.newBuilder(
                             Integer.parseInt(jsonMovieObject.getString("id")))
                             .setPosterPath(jsonMovieObject.getString("poster_path"))
+                            .setBackDropPath(jsonMovieObject.getString("backdrop_path"))
                             .setOriginalTitle(jsonMovieObject.getString("original_title"))
                             .setReleaseDate(jsonMovieObject.getString("release_date"))
-                            .setPopularity(jsonMovieObject.getString("popularity"))
-                            .setOverview(jsonMovieObject.getString("overview"));
+                            .setPopularity(jsonMovieObject.getString("vote_average"))
+                            .setOverview(jsonMovieObject.getString("overview"))
+                            .setDuration(jsonMovieObject.optString("running_time", "No Info"));
                     movieArrayList.add(movieBuilder.build());
                 }
             } catch (JSONException e) {

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ark.movieapp.cloud.VolleyHelpers.PosterLoader;
 import com.ark.movieapp.ui.model.Movie;
 
 import java.util.List;
@@ -62,9 +63,10 @@ public class MovieListAdapter extends BaseAdapter{
 
         Movie movie = getItem(position);
 
+        new PosterLoader(mViewHolder.moviePoster).execute(Movie.POSTER_URL + movie.getPosterPath());
         mViewHolder.movieName.setText(movie.getTitle());
         mViewHolder.movieYear.setText(movie.getYear());
-        mViewHolder.moviePoster.setImageResource(R.drawable.star1);
+//        mViewHolder.moviePoster.setImageResource(R.drawable.star1);
 
         return convertView;
 

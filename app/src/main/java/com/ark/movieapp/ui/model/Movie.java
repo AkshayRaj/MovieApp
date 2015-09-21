@@ -3,22 +3,25 @@ package com.ark.movieapp.ui.model;
 import ark.com.movieapp.R;
 
 public class Movie {
+    public static final String POSTER_URL = "http://image.tmdb.org/t/p/original";
     private final int mId;
     private final String mPosterPath;
+    private final String mBackdropPath;
     private final String mTitle;
     private final String mYear;
     private final String mRating;
-    private final String mDuration = "90";
+    private final String mDuration;
     private final String mDescription;
     private final int mFakeResId = R.drawable.star1;
     
     private Movie(MovieBuilder movieBuilder) {
         mId = movieBuilder.id;
         mPosterPath = movieBuilder.posterPath;
+        mBackdropPath = movieBuilder.backDropPath;
         mTitle = movieBuilder.originalTitle;
         mYear = movieBuilder.releaseDate;
         mRating = movieBuilder.popularity;
-        //mDuration = movieBuilder.duration;
+        mDuration = movieBuilder.duration;
         mDescription = movieBuilder.overview;
     }
 
@@ -30,7 +33,8 @@ public class Movie {
         private String posterPath;
         private String releaseDate;
         private String duration;
-        
+        private String backDropPath;
+
         public MovieBuilder(int id) {
             this.id = id;
         }
@@ -60,6 +64,11 @@ public class Movie {
             return this;
         }
 
+        public MovieBuilder setBackDropPath(String backDropPath) {
+            this.backDropPath = backDropPath;
+            return this;
+        }
+
         public MovieBuilder setReleaseDate(String releaseDate) {
             this.releaseDate = releaseDate;
             return this;
@@ -73,7 +82,6 @@ public class Movie {
         public Movie build() {
             return new Movie(this);
         }
-        
     }
     
     public static MovieBuilder newBuilder(int id) {
@@ -88,6 +96,10 @@ public class Movie {
         return mPosterPath;
     }
 
+    public String getBackdropPath() {
+        return mBackdropPath;
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -97,15 +109,15 @@ public class Movie {
     }
 
     public String getRating() {
-        return mRating;
+        return "Rating: " + mRating;
     }
 
     public String getDuration() {
-        return mDuration;
+        return "Running Time : " + mDuration;
     }
 
     public String getOverview() {
-        return mDescription;
+        return "Overview: \n" + mDescription;
     }
 
     @Override
