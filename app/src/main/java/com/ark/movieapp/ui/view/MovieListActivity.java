@@ -10,12 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ark.movieapp.cloud.CloudManager;
 import com.ark.movieapp.cloud.ResponseListener;
-import com.ark.movieapp.ui.adapter.MovieListAdapter;
+import com.ark.movieapp.ui.controller.MovieListAdapter;
 import com.ark.movieapp.ui.model.Movie;
 
 import org.json.JSONArray;
@@ -78,6 +79,19 @@ public class MovieListActivity extends Activity {
             }
         }
         setContentView(mMovieListView);
+        mMovieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // 1. Get item position and so get the ID of the object.
+                Movie movie = (Movie) adapterView.getAdapter().getItem(i);
+                // 2. Pass this to the next activity to show the details page.
+                Intent intent = new Intent(mContext, MovieDetailsActivity.class);
+                intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, (int) movie.getId());
+                // 3. Start the Movie Details screen
+                startActivity(intent);
+
+            }
+        });
     }
     
     private class TmdbHandler extends AsyncTask {

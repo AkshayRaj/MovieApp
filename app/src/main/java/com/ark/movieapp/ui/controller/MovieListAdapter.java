@@ -1,7 +1,6 @@
-package com.ark.movieapp.ui.adapter;
+package com.ark.movieapp.ui.controller;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
