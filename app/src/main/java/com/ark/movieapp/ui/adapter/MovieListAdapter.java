@@ -2,9 +2,11 @@ package com.ark.movieapp.ui.adapter;
 
 import android.content.Context;
 import android.media.Image;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ark.movieapp.ui.model.Movie;
@@ -19,11 +21,13 @@ import ark.com.movieapp.R;
 public class MovieListAdapter extends BaseAdapter{
 
     private List<Movie> mMovieList;
+    LayoutInflater mInflater;
     private Context mContext;
 
-    public MovieListAdapter(Context context, List<Movie> data) {
+    public MovieListAdapter(Context context, List<Movie> movieList) {
         mContext = context;
-        mMovieList = data;
+        mMovieList = movieList;
+        mInflater = LayoutInflater.from(mContext);
     }
 
     public void setMovieList(List<Movie> trips){
@@ -46,33 +50,36 @@ public class MovieListAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup parent) {
-        MovieView movieView;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        MovieViewHolder mViewHolder;
 
-        if (view == null) {
-            view = View.inflate(mContext, R.layout.item_movielist_summary, null);
-
-            movieView = new MovieView();
-            //movieView.moviePoster = (Image) view.findViewById(R.id.item_movieList_moviePoster_imageView);
-            movieView.movieName = (TextView) view.findViewById(R.id.item_movieList_movieName_textView);
-            movieView.movieYear = (TextView) view.findViewById(R.id.item_movieList_movieYear_textView);
-
-            view.setTag(movieView);
+        if (convertView == null) {
+            convertView = mInflater.inflate(R.layout.layout_list_item, parent, false);
+            mViewHolder = new MovieViewHolder(convertView);
+            convertView.setTag(mViewHolder);
+        } else {
+            mViewHolder = (MovieViewHolder) convertView.getTag();
         }
 
-        movieView = (MovieView) view.getTag();
+        Movie movie = getItem(position);
 
-        Movie movie = getItem(i);
-        movieView.movieName.setText(movie.getDuration());
-        movieView.movieName.setText(movie.getYear());
-        //movieView.moviePoster;
-        return view;
+        mViewHolder.movieName.setText(movie.getTitle());
+        mViewHolder.movieYear.setText(movie.getYear());
+        mViewHolder.moviePoster.setImageResource(R.drawable.star1);
+
+        return convertView;
 
     }
 
-    private class MovieView {
-        Image moviePoster;
+    private class MovieViewHolder {
+        ImageView moviePoster;
         TextView movieName;
         TextView movieYear;
+
+        public MovieViewHolder(View item) {
+            movieName = (TextView) item.findViewById(R.id.movieTitle);
+            movieYear = (TextView) item.findViewById(R.id.movieYear);
+            moviePoster = (ImageView) item.findViewById(R.id.moviePoster);
+        }
     }
 }

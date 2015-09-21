@@ -1,5 +1,7 @@
 package com.ark.movieapp.ui.model;
 
+import ark.com.movieapp.R;
+
 public class Movie {
     private final int mId;
     private final String mPosterPath;
@@ -8,6 +10,7 @@ public class Movie {
     private final String mRating;
     private final String mDuration = "90";
     private final String mDescription;
+    private final int mFakeResId = R.drawable.star1;
     
     private Movie(MovieBuilder movieBuilder) {
         mId = movieBuilder.id;

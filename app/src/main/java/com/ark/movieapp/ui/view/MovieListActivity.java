@@ -8,12 +8,14 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ark.movieapp.cloud.CloudManager;
 import com.ark.movieapp.cloud.ResponseListener;
+import com.ark.movieapp.ui.adapter.MovieListAdapter;
 import com.ark.movieapp.ui.model.Movie;
 
 import org.json.JSONArray;
@@ -27,14 +29,17 @@ import ark.com.movieapp.R;
 public class MovieListActivity extends Activity {
 
     private static final String LOG_TAG = MovieListActivity.class.getSimpleName();
+    Context mContext = MovieListActivity.this;
     CloudManager mCloudManager;
+    ListView mMovieListView;
+    ArrayList<Movie> movieArrayList = new ArrayList<Movie>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        
+        mMovieListView = (ListView) findViewById(R.id.list_view_movie);
         // Get the intent to get the query.
         Intent intent = getIntent();
         String query = intent.getStringExtra(MainActivity.EXTRA_QUERY);
@@ -59,13 +64,20 @@ public class MovieListActivity extends Activity {
      * @param result The results to be presented to the user.
      */
     public void updateViewWithResults(ArrayList<Movie> result) {
-        ListView listView = new ListView(this);
         Log.d("updateViewWithResults", result.toString());
-        // Add results to listView.
-        ArrayAdapter<Movie> adapter = new ArrayAdapter<Movie>(this, R.layout.movie_result_list_item, result);
-        listView.setAdapter(adapter);
-        // Update Activity to show listView
-        setContentView(listView);
+        movieArrayList = result;
+        //Add results to listView
+        mMovieListView.setAdapter(new MovieListAdapter(mContext, movieArrayList));
+        //Update Activity to show updated View
+        //But first remove any other child views of the parentView
+        View view = getCurrentFocus();
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null) {
+                parent.removeView(view);
+            }
+        }
+        setContentView(mMovieListView);
     }
     
     private class TmdbHandler extends AsyncTask {
