@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ark.movieapp.cloud.CloudManager;
-import com.ark.movieapp.cloud.ResponseListener;
 import com.ark.movieapp.ui.controller.MovieListAdapter;
 import com.ark.movieapp.ui.model.Movie;
 
@@ -103,7 +102,6 @@ public class MovieListActivity extends Activity {
     private class TmdbHandler extends AsyncTask {
 
         private static final String LOG_TAG = "TmdbHandler";
-        private boolean mResponseReceived = false;
         
         @Override
         protected ArrayList<Movie> doInBackground(Object... params) {
@@ -137,26 +135,6 @@ public class MovieListActivity extends Activity {
             return getMovieData(mCloudManager.searchForMovies(query, null));
         }
 
-        private ArrayList<Movie> useVolleyAsync(String query) {
-            JSONObject response = mCloudManager.searchForMovies(query, new ResponseListener() {
-                @Override
-                public void onResponseReceived(Object result) {
-                    Log.d(MovieListActivity.LOG_TAG, "onSuccess");
-                    setResponseReceived(true);
-                }
-
-                @Override
-                public void onResponseFailed(Exception errorMessage) {
-                    Log.d(MovieListActivity.LOG_TAG, "onFailure(): " + errorMessage.getMessage());
-                }
-            });
-            // waiting for response
-            while(!isResponseReceived()){
-                //This is bad.
-            }
-            return getMovieData(response);
-        }
-
         private ArrayList<Movie> getMovieData(JSONObject result) {
             String responseString = result.toString();
             ArrayList<Movie> movieArrayList = new ArrayList<Movie>();
@@ -181,14 +159,6 @@ public class MovieListActivity extends Activity {
                 Log.d(LOG_TAG, "Error parsing response: " + responseString);
             }
             return movieArrayList;
-        }
-
-        public void setResponseReceived(boolean responseReceived) {
-            mResponseReceived = responseReceived;
-        }
-
-        public boolean isResponseReceived() {
-            return mResponseReceived;
         }
     }
 

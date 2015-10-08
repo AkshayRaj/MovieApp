@@ -12,7 +12,7 @@ public class Movie {
     private final String mRating;
     private final String mDuration;
     private final String mDescription;
-    private final int mFakeResId = R.drawable.star1;
+    private final int mFakeResId = R.drawable.app_icon;
     
     private Movie(MovieBuilder movieBuilder) {
         mId = movieBuilder.id;
