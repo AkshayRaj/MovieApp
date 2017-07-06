@@ -12,6 +12,8 @@ import com.ark.movieapp.cloud.VolleyHelpers.StringRequestJsonResponse;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,13 +56,22 @@ public class CloudManager {
     }
 
     public JSONObject searchForMovies(String query, ResponseListener taskHandler){
+
         Log.d(LOG_TAG, "searchForMovies");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(CloudHelpers.BASE_URL.toString());
         stringBuilder.append(CloudHelpers.SEARCH_MOVIE.toString());
         stringBuilder.append(CloudHelpers.API_KEY_FIELD + TMDB_API_KEY);
-        stringBuilder.append(CloudHelpers.QUERY_FIELD.toString() + query);
+        String encodedUrl = null;
+
+        try {
+            encodedUrl = URLEncoder.encode(query, "UTF-8");
+        } catch (UnsupportedEncodingException ignored) {
+            // Can be safely ignored because UTF-8 is always supported
+        }
+        stringBuilder.append(CloudHelpers.QUERY_FIELD.toString() + encodedUrl);
         String url = stringBuilder.toString();
+
         Log.d(LOG_TAG, "url: " + url);
 
         return syncStringRequest(Request.Method.GET, url, taskHandler);
