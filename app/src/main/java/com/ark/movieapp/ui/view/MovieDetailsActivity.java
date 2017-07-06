@@ -60,7 +60,7 @@ public class MovieDetailsActivity extends Activity {
         mMovieYear.setText(movieYear);
         mMovieRating.setText(movieRating);
         mMovieDuration.setText(movieDuration);
-        mMovieDescription.setText(movieDescription);
+        mMovieDescription.setText(movieDescription);//
 
     }
 
